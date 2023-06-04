@@ -9,7 +9,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Authorization from './Authorization';
 import { checkToken } from '../utils/auth';
@@ -203,7 +203,7 @@ export default function App() {
             />
           }
         />
-        <Route path='*' />
+        <Route path='*' element={<Navigate to='/sign-up' />} />
       </Routes>
 
       <Footer />
