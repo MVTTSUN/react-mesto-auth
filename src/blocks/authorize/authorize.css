@@ -1,0 +1,8 @@
+.authorize {
+  margin: 0 auto;
+  max-width: 358px;
+  min-height: 429px;
+  display: flex;
+  flex-direction: column;
+  color: #FFF;
+}

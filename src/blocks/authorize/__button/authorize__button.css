@@ -1,0 +1,17 @@
+.authorize__button {
+  margin-top: 166px;
+  padding: 14px 0;
+  color: #000;
+  background-color: #FFF;
+  border: none;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  flex: auto;
+  transition: opacity .3s ease-in-out;
+}
+
+.authorize__button:hover {
+  opacity: .85;
+}

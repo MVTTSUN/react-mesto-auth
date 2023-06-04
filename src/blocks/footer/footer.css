@@ -1,0 +1,12 @@
+.footer {
+  margin-bottom: 60px;
+  color: #545454;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    margin: 0 auto 36px;
+    max-width: 282px;
+  }
+}

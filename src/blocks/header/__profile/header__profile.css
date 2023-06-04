@@ -1,0 +1,6 @@
+.header__profile {
+  height: 22px;
+  margin-top: 5px;
+  display: flex;
+  gap: 24px;
+}

@@ -1,0 +1,14 @@
+.authorize__link {
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: opacity .3s ease-in-out;
+}
+
+.authorize__link:hover {
+  opacity: .6;
+}
