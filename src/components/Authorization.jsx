@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import InfoTooltip from './InfoTooltip';
 import { useState } from 'react';
 import { authorize, register } from '../utils/auth';
 
@@ -25,15 +24,13 @@ export default function Authorization({ textHeading, textButton, handleLogin, on
 
   const handleAuthorize = () => {
     authorize(formValue.email, formValue.password)
-      .then(() => {
+      .then((data) => {
+        localStorage.setItem('token', data.token);
         setFormValue({email: '', password: ''});
         handleLogin(true);
         navigate('/');
       })
-      .catch((err) => {
-        console.log(err);
-        onOpenInfoPopup(false, err);
-      });
+      .catch((err) => onOpenInfoPopup(false, err));
   };
 
   const handleSubmit = (evt) => {
@@ -44,18 +41,14 @@ export default function Authorization({ textHeading, textButton, handleLogin, on
   };
 
   return (
-    <>
-      <main className="content">
-        <form onSubmit={handleSubmit} className="authorize" action="#">
-          <h1 className="authorize__heading">{textHeading}</h1>
-          <input required onChange={handleChange} value={formValue.email} name='email' className="authorize__input" type="email" placeholder="Email"/>
-          <input required onChange={handleChange} value={formValue.password} name='password' className="authorize__input" type="password" placeholder="Пароль"/>
-          <button className="authorize__button button">{textButton}</button>
-          {textHeading === 'Регистрация' && <Link className="authorize__link" to='/sign-in'>Уже зарегистрированы? Войти</Link>}
-        </form>
-      </main>
-
-      <InfoTooltip />
-    </>
+    <main className="content">
+      <form onSubmit={handleSubmit} className="authorize" action="#">
+        <h1 className="authorize__heading">{textHeading}</h1>
+        <input required onChange={handleChange} value={formValue.email} name='email' className="authorize__input" type="email" placeholder="Email"/>
+        <input required onChange={handleChange} value={formValue.password} name='password' className="authorize__input" type="password" placeholder="Пароль"/>
+        <button className="authorize__button button">{textButton}</button>
+        {textHeading === 'Регистрация' && <Link className="authorize__link" to='/sign-in'>Уже зарегистрированы? Войти</Link>}
+      </form>
+    </main>
   );
 }

@@ -1,6 +1,10 @@
 const BASE_URL = 'https://auth.nomoreparties.co';
 
-const register = (email, password) => {
+const getResponseData = (res, errorMessage) => {
+  return res.ok ? res.json() : Promise.reject(errorMessage);
+};
+
+const register = async (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: {
@@ -9,11 +13,10 @@ const register = (email, password) => {
       },
       body: JSON.stringify({email, password})
     })
-    .then((res) => res.json())
-    .then(({error}) => error && Promise.reject(error));
+    .then((res) => getResponseData(res, 'При регистрации произошла ошибка. Попробуйте еще раз.'));
 };
 
-const authorize = (email, password) => {
+const authorize = async (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
       method: 'POST',
       headers: {
@@ -22,14 +25,10 @@ const authorize = (email, password) => {
       },
       body: JSON.stringify({email, password})
     })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.message) return Promise.reject(data.message);
-      if (data.token) return localStorage.setItem('token', data.token);
-    });
+    .then((res) => getResponseData(res, 'При авторизации произошла ошибка. Попробуйте еще раз.'));
 };
 
-const checkToken = (token) => {
+const checkToken = async (token) => {
   return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
@@ -38,11 +37,7 @@ const checkToken = (token) => {
         'Authorization' : `Bearer ${token}`
       }
     })
-    .then((res) => res.json())
-    .then((data) => {
-      data.message && Promise.reject(data.message);
-      return data;
-    });
+    .then((res) => getResponseData(res, 'Не удалось проверить токен'));
 };
 
 export { register, authorize, checkToken };
